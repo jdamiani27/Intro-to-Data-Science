@@ -26,8 +26,14 @@ def entries_histogram(turnstile_weather):
     https://www.dropbox.com/s/meyki2wl9xfa7yk/turnstile_data_master_with_weather.csv
     '''
     plt.figure()
-    turnstile_weather['...'] # your code here to plot a historgram for hourly entries when it is raining
-    turnstile_weather['...'] # your code here to plot a historgram for hourly entries when it is not raining
+
+    ax = turnstile_weather[turnstile_weather.rain == 0]['ENTRIESn_hourly'].plot(kind='hist', bins=30, label='No Rain')
+    ax = turnstile_weather[turnstile_weather.rain == 1]['ENTRIESn_hourly'].plot(kind='hist', bins=30, alpha=0.7, label='Rain')
+    ax.legend()
+    ax.set_ylabel('Frequency')
+    ax.set_xlabel('ENTRIESn_hourly')
+    ax.set_title('Histogram of ENTRIESn_hourly')
+
     return plt
 
 
