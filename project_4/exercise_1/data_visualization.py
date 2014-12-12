@@ -44,7 +44,7 @@ def plot_weather_data(turnstile_weather):
 
     plot = ggplot(rainy_days, aes('weekday', 'hourlyentries')) + \
             geom_bar(fill = 'steelblue', stat='bar') + \
-            scale_x_continuous(name="Weekday", 
+            scale_x_continuous(name="Day of Week", 
                                 breaks=[0, 1, 2, 3, 4, 5, 6], 
                                 labels=["Sunday", 
                                         "Monday",
@@ -53,7 +53,7 @@ def plot_weather_data(turnstile_weather):
                                         "Thursday", 
                                         "Friday", 
                                         "Saturday"]) + \
-            ggtitle("Average ENTRIESn_hourly by Weekday") + \
+            ggtitle("Average ENTRIESn_hourly by Day of Week") + \
             ylab("ENTRIESn_hourly")
 
     return plot
