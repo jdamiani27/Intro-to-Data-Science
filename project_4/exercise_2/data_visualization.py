@@ -1,7 +1,4 @@
-from pandas import *
-from ggplot import *
-
-from pandas import *
+import pandas as pd
 from ggplot import *
 
 def plot_weather_data(turnstile_weather):
@@ -38,9 +35,11 @@ def plot_weather_data(turnstile_weather):
     return plot
 
 if __name__ == "__main__":
+    
+    input_filename = "turnstile_data_master_with_weather.csv"
     image = "plot.png"
-    with open(image, "wb") as f:
-        turnstile_weather = pd.read_csv(input_filename)
-        turnstile_weather['datetime'] = turnstile_weather['DATEn'] + ' ' + turnstile_weather['TIMEn']
-        gg =  plot_weather_data(turnstile_weather)
-        ggsave(f, gg)
+
+    turnstile_weather = pd.read_csv(input_filename)
+    turnstile_weather['datetime'] = turnstile_weather['DATEn'] + ' ' + turnstile_weather['TIMEn']
+    gg =  plot_weather_data(turnstile_weather)
+    ggsave(image, gg)

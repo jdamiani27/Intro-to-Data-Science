@@ -1,4 +1,5 @@
-from pandas import *
+import pandas as pd
+import pandasql
 from ggplot import *
 
 def plot_weather_data(turnstile_weather):
@@ -28,15 +29,42 @@ def plot_weather_data(turnstile_weather):
     However, due to the limitation of our Amazon EC2 server, we are giving you about 1/3
     of the actual data in the turnstile_weather dataframe
     '''
+    
+    df = turnstile_weather[['DATEn', 'ENTRIESn_hourly', 'rain']]
+ 
+    q = """
+    select cast(strftime('%w', DATEn) as integer) as weekday, sum(ENTRIESn_hourly)/count(*) as hourlyentries
+    from df
+    group by cast(strftime('%w', DATEn) as integer)
+    """
+    
+    #Execute your SQL command against the pandas frame
+    rainy_days = pandasql.sqldf(q.lower(), locals())
 
-    plot = # your code here
+
+    plot = ggplot(rainy_days, aes('weekday', 'hourlyentries')) + \
+            geom_bar(fill = 'steelblue', stat='bar') + \
+            scale_x_continuous(name="Weekday", 
+                                breaks=[0, 1, 2, 3, 4, 5, 6], 
+                                labels=["Sunday", 
+                                        "Monday",
+                                        "Tuesday",
+                                        "Wednesday", 
+                                        "Thursday", 
+                                        "Friday", 
+                                        "Saturday"]) + \
+            ggtitle("Average ENTRIESn_hourly by Weekday") + \
+            ylab("ENTRIESn_hourly")
+
     return plot
 
 
 if __name__ == "__main__":
+    
+    input_filename = "turnstile_data_master_with_weather.csv"
     image = "plot.png"
-    with open(image, "wb") as f:
-        turnstile_weather = pd.read_csv(input_filename)
-        turnstile_weather['datetime'] = turnstile_weather['DATEn'] + ' ' + turnstile_weather['TIMEn']
-        gg =  plot_weather_data(turnstile_weather)
-        ggsave(f, gg)
+
+    turnstile_weather = pd.read_csv(input_filename)
+    turnstile_weather['datetime'] = turnstile_weather['DATEn'] + ' ' + turnstile_weather['TIMEn']
+    gg =  plot_weather_data(turnstile_weather)
+    ggsave(image, gg)
