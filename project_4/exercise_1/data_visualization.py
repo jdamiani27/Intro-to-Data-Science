@@ -44,6 +44,7 @@ def plot_weather_data(turnstile_weather):
 
     plot = ggplot(rainy_days, aes('weekday', 'hourlyentries')) + \
             geom_bar(fill = 'steelblue', stat='bar') + \
+            # strftime in sql returns 0 as Sunday
             scale_x_continuous(name="Day of Week", 
                                 breaks=[0, 1, 2, 3, 4, 5, 6], 
                                 labels=["Sunday", 
