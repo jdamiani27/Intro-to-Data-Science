@@ -6,27 +6,29 @@ from datetime import datetime
 
 
 def predictions(weather_turnstile):
-
-    f = lambda x: datetime.strptime(x, "%Y-%m-%d").weekday()
-
+    
     # Select Features (try different features!)
-    features = weather_turnstile[['rain', 'fog', 'precipi', 'Hour', 'mintempi', 'maxtempi']]
+    features = weather_turnstile[['rain', 'fog', 'precipi', 
+                                  'Hour', 'mintempi', 'meantempi',
+                                  'maxtempi']]
+    
+    features.is_copy = False
+    
+    f = lambda x: datetime.strptime(x, "%Y-%m-%d").weekday()
     features['weekday'] = weather_turnstile['DATEn'].apply(f)
-
+    
     # Add UNIT to features using dummy variables
     dummy_units = pd.get_dummies(weather_turnstile['UNIT'], prefix='unit')
     features = features.join(dummy_units)
     
     # Create polynomial features
-    #features['precipi'] = features['precipi']**3
+    features['precipi'] = features['precipi']**0.5
     
     # Values
     values = weather_turnstile[['ENTRIESn_hourly']]
     m = len(values)
 
     features['ones'] = np.ones(m) # Add a column of 1s (y intercept)
-    
-    #print features.tail()
     
     # Convert features and values to numpy arrays
     features_array = np.array(features)
