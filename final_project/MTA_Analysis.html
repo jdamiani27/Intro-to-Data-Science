@@ -1901,7 +1901,7 @@ In&nbsp;[1]:
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The NYC subway data was analyzed with the Mann-Whitney U-Test. A two-tail p-value was used as no prior assumptions are made about the contrast in the distributions of ridership on rainy and non-rainy days.</p>
 <p>The p-value returned by scipy.stats.mannwhitneyu is one-tailed as noted here: <a href="http://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.stats.mannwhitneyu.html" class="uri">http://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.stats.mannwhitneyu.html</a></p>
-<p>In order to use a two-tailed test, the one-tailed p-value returned by scipy.stats.mannwhitneyu must be divided by 2.</p>
+<p>In order to use a two-tailed test, the one-tailed p-value returned by scipy.stats.mannwhitneyu must be multiplied by 2.</p>
 <p>The significance level being used in this test is 0.05 (i.e. 5% chance of observing a result as least as extreme).</p>
 </div>
 </div>
@@ -2040,7 +2040,7 @@ In&nbsp;[4]:
 <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.05</span>
 
 <span class="c"># two-tailed test</span>
-<span class="k">if</span> <span class="p">(</span><span class="n">p</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">alpha</span> <span class="o">/</span> <span class="mi">2</span><span class="p">):</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">p</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">alpha</span><span class="p">:</span>
     <span class="k">print</span> <span class="s">&#39;Reject the null hypothesis&#39;</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="k">print</span> <span class="s">&#39;Fail to reject null hypothesis&#39;</span>
@@ -2404,7 +2404,7 @@ In&nbsp;[10]:
 
 <div class="output_text output_subarea output_pyout">
 <pre>
-&lt;matplotlib.text.Text at 0x10d590190&gt;
+&lt;matplotlib.text.Text at 0x12f229350&gt;
 </pre>
 </div>
 
@@ -3733,7 +3733,7 @@ rkJggg==
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
-&lt;ggplot: (286281861)&gt;
+&lt;ggplot: (286519261)&gt;
 
 </pre>
 </div>
@@ -5099,7 +5099,7 @@ RERERER2w6KTiIiIiIiI7IZFJxEREREREdnN/wHoTggSnAEAKwAAAABJRU5ErkJggg==
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
-&lt;ggplot: (285461769)&gt;
+&lt;ggplot: (280581141)&gt;
 
 </pre>
 </div>
