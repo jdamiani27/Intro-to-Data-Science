@@ -16,13 +16,13 @@ def predictions(weather_turnstile):
     
     f = lambda x: datetime.strptime(x, "%Y-%m-%d").weekday()
     features['weekday'] = weather_turnstile['DATEn'].apply(f)
+
+    # Create polynomial features
+    features['precipi'] = features['precipi']**0.5
     
     # Add UNIT to features using dummy variables
     dummy_units = pd.get_dummies(weather_turnstile['UNIT'], prefix='unit')
     features = features.join(dummy_units)
-    
-    # Create polynomial features
-    features['precipi'] = features['precipi']**0.5
     
     # Values
     values = weather_turnstile[['ENTRIESn_hourly']]
